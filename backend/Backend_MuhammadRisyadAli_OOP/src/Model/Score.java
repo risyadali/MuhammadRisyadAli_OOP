@@ -6,7 +6,6 @@ import java.util.UUID;
 public class Score {
     private UUID scoreId;
     private UUID playerId;
-    private Player player;
     private int value;
     private int coinsCollected;
     private int distance;
@@ -43,7 +42,7 @@ public class Score {
         return distance;
     }
 
-    public Object getPlayerId() {
+    public UUID getPlayerId() {
         return playerId;
     }
 

@@ -1,90 +1,66 @@
-import Model.Player;
-import Model.Score;
+package Model;
+
 import Repository.PlayerRepository;
 import Repository.ScoreRepository;
-import java.util.UUID;
+import Service.PlayerService;
+import Service.ScoreService;
 
 public class Main {
     public static void main(String[] args) {
-        PlayerRepository playerRepo = new PlayerRepository();
-        ScoreRepository scoreRepo = new ScoreRepository();
+        PlayerRepository playerRepository = new PlayerRepository();
+        ScoreRepository scoreRepository = new ScoreRepository();
 
-        Player player1 = new Player("gamer123");
-        Player player2 = new Player("gamerLooxmaxxing");
-        Player player3 = new Player("Andi123");
-        Player player4 = new Player("Banananana");
+        PlayerService playerService = new PlayerService(playerRepository);
+        ScoreService scoreService = new ScoreService(scoreRepository, playerRepository, playerService);
 
-        // Simpan player
-        playerRepo.save(player1);
-        playerRepo.save(player2);
-        playerRepo.save(player3);
-        playerRepo.save(player4);
+        System.out.println("=== CS 4 ===\n");
 
-        // Update stats player
-        player1.updateHighScore(1500);
-        player1.addCoins(250);
-        player1.addDistance(5000);
+        Player player1 = new Player("NanaBanana");
+        Player player2 = new Player("Yingko");
+        Player player3 = new Player("LegdontWork");
 
-        player2.updateHighScore(3200);
-        player2.addCoins(750);
-        player2.addDistance(12000);
+        playerService.createPlayer(player1);
+        playerService.createPlayer(player2);
+        playerService.createPlayer(player3);
 
-        // Update stats untuk player 3 dan 4
-        player3.updateHighScore(2400);
-        player3.addCoins(450);
-        player3.addDistance(6600);
+        System.out.println("Players created!\n");
+        System.out.println("All Players (Initial Status):");
+        playerService.getAllPlayers().forEach(Player::showDetail);
 
-        player4.updateHighScore(3200);
-        player4.addCoins(1110);
-        player4.addDistance(19200);
+        scoreService.createScore(new Score(player1.getPlayerId(), 1500, 50, 3000));
+        scoreService.createScore(new Score(player1.getPlayerId(), 2000, 75, 4500));
+        scoreService.createScore(new Score(player2.getPlayerId(), 1800, 60, 3500));
+        scoreService.createScore(new Score(player3.getPlayerId(), 1200, 40, 2500));
+        scoreService.createScore(new Score(player3.getPlayerId(), 2500, 90, 5000));
 
-        // Buat dan simpan score
-        Score score1 = new Score(player2.getPlayerId(), 1500, 250, 5000);
-        Score score2 = new Score(player4.getPlayerId(), 3200, 750, 12000);
-        Score score3 = new Score(player1.getPlayerId(), 4000, 400, 32000);
-        Score score4 = new Score(player4.getPlayerId(), 1800, 300, 6000);
-        Score score5 = new Score(player3.getPlayerId(), 2400, 240, 2400);
-        Score score6 = new Score(player2.getPlayerId(), 6200, 320, 5000);
-        Score score7 = new Score(player4.getPlayerId(), 1800, 60, 1200);
-        Score score8 = new Score(player1.getPlayerId(), 2100, 200, 7000);
-        Score score9 = new Score(player1.getPlayerId(), 8000, 720, 6200);
-        Score score10 = new Score(player3.getPlayerId(), 1900, 210, 4200);
+        System.out.println("Scores created!\n");
 
-        // Simpan score
-        scoreRepo.save(score1);
-        scoreRepo.save(score2);
-        scoreRepo.save(score3);
-        scoreRepo.save(score4);
-        scoreRepo.save(score5);
-        scoreRepo.save(score6);
-        scoreRepo.save(score7);
-        scoreRepo.save(score8);
-        scoreRepo.save(score9);
-        scoreRepo.save(score10);
+        System.out.println("Player Stats After Scores:");
+        playerService.getAllPlayers().forEach(Player::showDetail);
 
-        System.out.println("=== TESTING CS3 ===");
+        System.out.println("Top 2 players by high score:");
+        playerService.getLeaderboardByHighScore(2).forEach(Player::showDetail);
 
-        System.out.println("Find player by ID:");
-        // Tunjukkan detail Player 3
-        playerRepo.findById(player3.getPlayerId()).ifPresent(Player::showDetail);
+        System.out.println("All scores for " + player1.getUsername() + ":");
+        scoreService.getScoresByPlayerId(player1.getPlayerId()).forEach(Score::showDetail);
 
-        System.out.println("All players:");
-        // Tunjukkan semua player
-        playerRepo.findAll().forEach(Player::showDetail);
+        System.out.println("Top 3 scores overall:");
+        scoreService.getLeaderboard(3).forEach(Score::showDetail);
 
-        // Urutkan player berdasar highscore
-        System.out.println("Players sorted by highscore:");
-        playerRepo.findTopPlayersByHighScore(10).forEach(Player::showDetail);
+        System.out.println("Searching for player 'NanaBanana':");
+        try {
+            Player found = playerService.getPlayerByUsername("NanaBanana");
+            found.showDetail();
+        } catch (RuntimeException e) {
+            System.out.println("Player not found!");
+        }
 
-        System.out.println("Scores for player1:");
-        // Cari Score Player 1
-        scoreRepo.findByPlayerId(player1.getPlayerId()).forEach(Score::showDetail);
+        System.out.println("Totals for " + player3.getUsername() + ":");
+        System.out.println("Total Coins: " + scoreService.getTotalCoinsByPlayerId(player3.getPlayerId()));
+        System.out.println("Total Distance: " + scoreService.getTotalDistanceByPlayerId(player3.getPlayerId()));
+        System.out.println();
 
-        // Additional tests
-        System.out.println("Top 3 scores:");
-        scoreRepo.findTopScores(3).forEach(Score::showDetail);
-
-        System.out.println("Total coins for player1: " +
-                scoreRepo.getTotalCoinsByPlayerId(player1.getPlayerId()));
+        System.out.println("Recent scores (ordered by creation time):");
+        scoreService.getRecentScores().forEach(Score::showDetail);
     }
 }

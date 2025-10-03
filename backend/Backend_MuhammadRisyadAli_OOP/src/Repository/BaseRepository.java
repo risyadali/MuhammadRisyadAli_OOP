@@ -14,13 +14,13 @@ public abstract class BaseRepository<T, ID> {
         return new ArrayList<>(allData);
     }
 
-    public abstract void save(T entity);
-    public abstract ID getId(T entity);
-
     public void deleteById(ID id) {
         T entity = dataMap.remove(id);
         if (entity != null) {
             allData.remove(entity);
         }
     }
+
+    public abstract void save(T entity);
+    public abstract ID getId(T entity);
 }
