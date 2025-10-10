@@ -1,4 +1,4 @@
-package Model;
+package com.risyad.backend.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,7 +14,7 @@ public class Player {
     @Column(name = "player_id")
     private UUID playerId;
 
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(name = "high_score")
@@ -23,8 +23,8 @@ public class Player {
     @Column(name = "total_coins")
     private Integer totalCoins = 0;
 
-    @Column(name = "total_distance")
-    private Integer totalDistance = 0;
+    @Column(name = "total_distance_travelled")
+    private Integer totalDistanceTravelled = 0;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -38,29 +38,59 @@ public class Player {
         this.username = username;
     }
 
-    // Getter & Setter
-    public UUID getPlayerId() { return playerId; }
-    public void setPlayerId(UUID playerId) { this.playerId = playerId; }
+    // Getters and Setters
+    public UUID getPlayerId() {
+        return playerId;
+    }
 
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public void setPlayerId(UUID playerId) {
+        this.playerId = playerId;
+    }
 
-    public Integer getHighScore() { return highScore; }
-    public void setHighScore(Integer highScore) { this.highScore = highScore; }
+    public String getUsername() {
+        return username;
+    }
 
-    public Integer getTotalCoins() { return totalCoins; }
-    public void setTotalCoins(Integer totalCoins) { this.totalCoins = totalCoins; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public Integer getTotalDistance() { return totalDistance; }
-    public void setTotalDistance(Integer totalDistance) { this.totalDistance = totalDistance; }
+    public Integer getHighScore() {
+        return highScore;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public void setHighScore(Integer highScore) {
+        this.highScore = highScore;
+    }
+
+    public Integer getTotalCoins() {
+        return totalCoins;
+    }
+
+    public void setTotalCoins(Integer totalCoins) {
+        this.totalCoins = totalCoins;
+    }
+
+    public Integer getTotalDistanceTravelled() {
+        return totalDistanceTravelled;
+    }
+
+    public void setTotalDistanceTravelled(Integer totalDistanceTravelled) {
+        this.totalDistanceTravelled = totalDistanceTravelled;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
     // Business methods
-    public void updateHighScore(Integer score) {
-        if (score > this.highScore) {
-            this.highScore = score;
+    public void updateHighScore(Integer newScore) {
+        if (newScore > this.highScore) {
+            this.highScore = newScore;
         }
     }
 
@@ -69,7 +99,6 @@ public class Player {
     }
 
     public void addDistance(Integer distance) {
-        this.totalDistance += distance;
+        this.totalDistanceTravelled += distance;
     }
 }
-

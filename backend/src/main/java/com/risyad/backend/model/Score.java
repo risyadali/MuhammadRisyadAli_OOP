@@ -1,4 +1,4 @@
-package Model;
+package com.risyad.backend.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -45,25 +45,61 @@ public class Score {
         this.distanceTravelled = distanceTravelled;
     }
 
-    // Getter & Setter
-    public UUID getScoreId() { return scoreId; }
-    public void setScoreId(UUID scoreId) { this.scoreId = scoreId; }
+    // Getters and Setters
+    public UUID getScoreId() {
+        return scoreId;
+    }
 
-    public UUID getPlayerId() { return playerId; }
-    public void setPlayerId(UUID playerId) { this.playerId = playerId; }
+    public void setScoreId(UUID scoreId) {
+        this.scoreId = scoreId;
+    }
 
-    public Player getPlayer() { return player; }
-    public void setPlayer(Player player) { this.player = player; }
+    public UUID getPlayerId() {
+        return playerId;
+    }
 
-    public Integer getValue() { return value; }
-    public void setValue(Integer value) { this.value = value; }
+    public void setPlayerId(UUID playerId) {
+        this.playerId = playerId;
+    }
 
-    public Integer getCoinsCollected() { return coinsCollected; }
-    public void setCoinsCollected(Integer coinsCollected) { this.coinsCollected = coinsCollected; }
+    public Player getPlayer() {
+        return player;
+    }
 
-    public Integer getDistanceTravelled() { return distanceTravelled; }
-    public void setDistanceTravelled(Integer distanceTravelled) { this.distanceTravelled = distanceTravelled; }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public Integer getCoinsCollected() {
+        return coinsCollected;
+    }
+
+    public void setCoinsCollected(Integer coinsCollected) {
+        this.coinsCollected = coinsCollected;
+    }
+
+    public Integer getDistanceTravelled() {
+        return distanceTravelled;
+    }
+
+    public void setDistanceTravelled(Integer distanceTravelled) {
+        this.distanceTravelled = distanceTravelled;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }
+
