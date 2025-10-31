@@ -1,7 +1,9 @@
 package com.risyad.backend.service;
 
-import com.joyride.be_modul5.Model.Player;
-import com.joyride.be_modul5.Repository.PlayerRepository;
+import com.risyad.backend.model.Player;
+import com.risyad.backend.model.Score;
+import com.risyad.backend.repository.PlayerRepository;
+import com.risyad.backend.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

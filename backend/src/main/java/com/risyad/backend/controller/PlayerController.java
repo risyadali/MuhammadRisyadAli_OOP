@@ -1,6 +1,6 @@
 package com.risyad.backend.controller;
 
-import com.risyad.backend.controller.Player;
+import com.risyad.backend.model.Player;
 import com.risyad.backend.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

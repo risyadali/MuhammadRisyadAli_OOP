@@ -2,6 +2,7 @@ package com.risyad.backend.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -102,4 +103,3 @@ public class Score {
         this.createdAt = createdAt;
     }
 }
-
